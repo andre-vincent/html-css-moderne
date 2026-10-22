@@ -1,0 +1,214 @@
+/* ---------------------------------------------------------------------
+   1. CONFIGURATION DU THÈME BI-MODAL ET PERSISTANT
+------------------------------------------------------------------------ */
+:root {
+  color-scheme: light dark;
+  font-size-adjust: 0.5;
+
+  --font-size-base: clamp(1rem, 0.95rem + 0.25vw, 1.2rem);
+  --font-size-h1: clamp(2rem, 1.6rem + 2vw, 3.2rem);
+  --font-size-h2: clamp(1.5rem, 1.3rem + 1vw, 2rem);
+  --gap-fluid: clamp(1rem, 2.5vw, 2.5rem);
+
+  --bg-color: light-dark(WhiteSmoke, Black);
+  --bg-surface: light-dark(White, DarkSlateGray);
+  --bg-card: light-dark(White, #1e1e1e);
+  --text-color: light-dark(Black, WhiteSmoke);
+  --border-color: light-dark(Gainsboro, DimGray);
+  
+  --link-color: light-dark(Navy, SkyBlue);
+  --link-hover: light-dark(MidnightBlue, LightSkyBlue);
+  --focus-outline: light-dark(Crimson, OrangeRed);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg-color: WhiteSmoke; --bg-surface: White; --bg-card: White;
+  --text-color: Black; --border-color: Gainsboro;
+  --link-color: Navy; --link-hover: MidnightBlue; --focus-outline: Crimson;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg-color: Black; --bg-surface: DarkSlateGray; --bg-card: #1e1e1e;
+  --text-color: WhiteSmoke; --border-color: DimGray;
+  --link-color: SkyBlue; --link-hover: LightSkyBlue; --focus-outline: OrangeRed;
+}
+
+/* ---------------------------------------------------------------------
+   2. STYLES GLOBALS & STRUCTURE INTRINSÈQUE
+------------------------------------------------------------------------ */
+body {
+  font-family: Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans', source-sans-pro, sans-serif;
+  font-size: var(--font-size-base);
+  line-height: 1.7;
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+h1 { font-size: var(--font-size-h1); line-height: 1.15; margin-top: 1rem; }
+h2 { font-size: var(--font-size-h2); margin-top: 3rem; }
+a { color: var(--link-color); text-decoration: underline; text-underline-offset: 3px; }
+a:hover { color: var(--link-hover); text-decoration: none; }
+
+*:focus-visible {
+  outline: 3px solid var(--focus-outline);
+  outline-offset: 4px;
+}
+
+.wrapper {
+  width: min(100% - var(--gap-fluid) * 2, 85ch);
+  margin-inline: auto;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  background: var(--focus-outline);
+  color: White;
+  padding: 0.5rem 1rem;
+  z-index: 100;
+  text-decoration: none;
+}
+.skip-link:focus-visible { top: 0; }
+
+main {
+  flex-grow: 1;
+  padding-bottom: var(--gap-fluid);
+}
+main:focus { outline: none; }
+
+/* ---------------------------------------------------------------------
+   3. HEADER & CONTRÔLES DE LA NAVIGATION DROITE
+------------------------------------------------------------------------ */
+header {
+  background-color: var(--bg-surface);
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: var(--gap-fluid);
+}
+
+header nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding-block: 1.25rem;
+}
+
+.nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+header nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+header nav a { text-decoration: none; }
+header nav a:hover { text-decoration: underline; }
+header nav a[aria-current="page"] {
+  border-bottom: 2px solid var(--text-color);
+  font-weight: 600;
+}
+
+header nav button {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  padding: 0.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+
+header nav button:hover {
+  background-color: var(--bg-color);
+}
+
+/* SVG Hybride (Soleil / Lune) */
+:root:not([data-theme="dark"]) .sun { display: none; }
+:root:not([data-theme="dark"]) .moon { display: block; }
+:root[data-theme="dark"] .sun { display: block; }
+:root[data-theme="dark"] .moon { display: none; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .sun { display: block; }
+  :root:not([data-theme="light"]) .moon { display: none; }
+}
+
+/* ---------------------------------------------------------------------
+   4. COMPOSANTS PRINCIPAUX (ARTICLE ET SERVICES GRID)
+------------------------------------------------------------------------ */
+article {
+  max-width: 70ch;
+  margin-bottom: var(--gap-fluid);
+}
+
+main ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--gap-fluid);
+}
+
+main ul li {
+  background-color: var(--bg-card);
+  padding: 1.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+/* ---------------------------------------------------------------------
+   5. DE RETOUR : STYLE DE LA GALERIE FLEXIBILE INTRINSÈQUE
+------------------------------------------------------------------------ */
+section > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-fluid);
+}
+
+section > div img {
+  flex: 1 0 220px; /* Les images s'étirent et s'empilent dès 220px de largeur critique */
+  object-fit: cover;
+  height: 220px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+}
+
+/* ---------------------------------------------------------------------
+   6. FOOTER
+------------------------------------------------------------------------ */
+footer {
+  background-color: var(--bg-surface);
+  border-top: 1px solid var(--border-color);
+  padding-block: 1.5rem;
+  font-size: 0.95rem;
+}
+
+footer .wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+footer p { margin: 0; }
