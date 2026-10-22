@@ -177,7 +177,7 @@ main ul li {
 }
 
 /* ---------------------------------------------------------------------
-   5. DE RETOUR : STYLE DE LA GALERIE FLEXIBILE INTRINSÈQUE
+   5. GALERIE FLEXIBLE
 ------------------------------------------------------------------------ */
 section > div {
   display: flex;
@@ -186,7 +186,7 @@ section > div {
 }
 
 section > div img {
-  flex: 1 0 220px; /* Les images s'étirent et s'empilent dès 220px de largeur critique */
+  flex: 1 0 220px;
   object-fit: cover;
   height: 220px;
   border-radius: 6px;
@@ -194,12 +194,12 @@ section > div img {
 }
 
 /* ---------------------------------------------------------------------
-   6. FOOTER
+   6. FOOTER MIS À JOUR AVEC LE BADGE ALIGNÉ
 ------------------------------------------------------------------------ */
 footer {
   background-color: var(--bg-surface);
   border-top: 1px solid var(--border-color);
-  padding-block: 1.5rem;
+  padding-block: 1rem;
   font-size: 0.95rem;
 }
 
@@ -208,7 +208,22 @@ footer .wrapper {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
-footer p { margin: 0; }
+footer p {
+  margin: 0;
+}
+
+/* Gère l'alignement intrinsèque du badge à droite */
+.footer-badge {
+  display: inline-flex;
+  margin: 0;
+}
+
+/* S'assure que le badge ne dépasse pas et reste fluide */
+.footer-badge img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
