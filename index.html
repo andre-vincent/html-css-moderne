@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Découvrez une démonstration de site web moderne alliant design intrinsèque, typographie fluide et structure HTML épurée sans classe.">
+  <title>Design Intrinsèque Accessible (AA)</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- SCRIPT DE PRÉ-CHARGEMENT DU THÈME -->
+  <script>
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    }
+  </script>
+</head>
+<body>
+
+  <a href="#contenu-principal" class="skip-link">Aller au contenu principal</a>
+
+  <header>
+    <div class="wrapper">
+      <nav aria-label="Navigation principale">
+        <a href="#" aria-current="page"><strong>MonLogo</strong></a>
+        
+        <div class="nav-controls">
+          <ul>
+            <li><a href="#">Accueil</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+
+          <button id="theme-toggle" aria-label="Changer de thème" aria-live="polite">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <circle class="sun" cx="12" cy="12" r="5"></circle>
+              <line class="sun" x1="12" y1="1" x2="12" y2="3"></line>
+              <line class="sun" x1="12" y1="21" x2="12" y2="23"></line>
+              <line class="sun" x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line class="sun" x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line class="sun" x1="1" y1="12" x2="3" y2="12"></line>
+              <line class="sun" x1="21" y1="12" x2="23" y2="12"></line>
+              <line class="sun" x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line class="sun" x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              <path class="moon" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrapper" id="contenu-principal" tabindex="-1">
+    <article>
+      <h1>À propos du web moderne</h1>
+      <p>Le design intrinsèque nous invite à abandonner le contrôle absolu sur chaque pixel au profit d'une collaboration avec le navigateur. En combinant des propriétés comme Flexbox, CSS Grid et des fonctions mathématiques, les éléments s'agencent d'eux-mêmes selon le contenu qu'ils abritent.</p>
+    </article>
+
+    <section aria-labelledby="titre-services">
+      <h2 id="titre-services">Nos Services</h2>
+      <ul>
+        <li><h3>Design</h3><p>Conception centrée sur l'utilisateur.</p></li>
+        <li><h3>Développement</h3><p>Code propre et sémantique.</p></li>
+        <li><h3>Performance</h3><p>Des pages ultra-rapides.</p></li>
+      </ul>
+    </section>
+
+    <!-- SECTION DE GALERIE RESTAURÉE -->
+    <section aria-labelledby="titre-galerie">
+      <h2 id="titre-galerie">Galerie Flexible</h2>
+      <div>
+        <img src="https://picsum.photos" alt="Paysage abstrait généré aléatoirement 1">
+        <img src="https://picsum.photos" alt="Paysage abstrait généré aléatoirement 2">
+        <img src="https://picsum.photos" alt="Paysage abstrait généré aléatoirement 3">
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrapper">
+      <p>&copy; 2026 MonSite. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <script>
+    const toggleButton = document.getElementById('theme-toggle');
+    function getCurrentTheme() {
+      if (document.documentElement.getAttribute('data-theme')) {
+        return document.documentElement.getAttribute('data-theme');
+      }
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    toggleButton.addEventListener('click', () => {
+      const currentTheme = getCurrentTheme();
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    });
+  </script>
+</body>
+</html>
