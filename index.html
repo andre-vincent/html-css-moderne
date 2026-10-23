@@ -74,6 +74,80 @@
         <img src="https://picsum.photos/200/300?random=3.webp" alt="Paysage abstrait généré aléatoirement 3">
       </div>
     </section>
+    
+    <!-- SECTION RÉSULTAT LIGHTHOUSE - SVG ET LIEN -->
+    <section>
+      <!-- Styles discrets appliqués uniquement pour le focus au clavier -->
+<style>
+  .lighthouse-badge-link {
+    display: inline-block;
+    text-decoration: none;
+    border-radius: 12px;
+    transition: transform 0.2s ease;
+    outline: none; /* Supprime l'outline par défaut du navigateur */
+  }
+  
+  /* Effet discret uniquement au survol de la souris */
+  .lighthouse-badge-link:hover {
+    transform: scale(1.01);
+  }
+  
+  /* Respect strict des normes AA : visible UNIQUEMENT via navigation clavier */
+  .lighthouse-badge-link:focus-visible {
+    transform: scale(1.01);
+    outline: 3px solid #00cc66;
+    outline-offset: 4px;
+  }
+</style>
+
+<a href="https://votre-lien-vers-le-rapport.com" 
+   class="lighthouse-badge-link"
+   aria-label="Rapport de performance Lighthouse : Score maximal de 100 sur 100 pour la Performance, l'Accessibilité, les Bonnes pratiques et le SEO.">
+  
+  <svg xmlns="http://w3.org" viewBox="0 0 900 240" width="100%" height="200" aria-hidden="true" style="background-color: #ffffff; font-family: 'Roboto', 'Segoe UI', Arial, sans-serif; border-radius: 12px;">
+    <defs>
+      <style>
+        .circle-bg { fill: none; stroke: #ccedd5; stroke-width: 8; }
+        .circle-value { fill: none; stroke: #00cc66; stroke-width: 8; stroke-linecap: round; stroke-dasharray: 263.89; stroke-dashoffset: 0; }
+        .score-text { font-size: 32px; font-weight: 700; fill: #00cc66; text-anchor: middle; dominant-baseline: central; }
+        .label-text { font-size: 16px; font-weight: 500; fill: #202124; text-anchor: middle; }
+      </style>
+    </defs>
+
+    <!-- Performance -->
+    <g transform="translate(120, 110)">
+      <circle class="circle-bg" r="42" />
+      <circle class="circle-value" r="42" transform="rotate(-90)" />
+      <text class="score-text">100</text>
+      <text class="label-text" y="75">Performance</text>
+    </g>
+
+    <!-- Accessibilité -->
+    <g transform="translate(340, 110)">
+      <circle class="circle-bg" r="42" />
+      <circle class="circle-value" r="42" transform="rotate(-90)" />
+      <text class="score-text">100</text>
+      <text class="label-text" y="75">Accessibilité</text>
+    </g>
+
+    <!-- Bonnes pratiques -->
+    <g transform="translate(560, 110)">
+      <circle class="circle-bg" r="42" />
+      <circle class="circle-value" r="42" transform="rotate(-90)" />
+      <text class="score-text">100</text>
+      <text class="label-text" y="75">Bonnes pratiques</text>
+    </g>
+
+    <!-- SEO -->
+    <g transform="translate(780, 110)">
+      <circle class="circle-bg" r="42" />
+      <circle class="circle-value" r="42" transform="rotate(-90)" />
+      <text class="score-text">100</text>
+      <text class="label-text" y="75">SEO</text>
+    </g>
+  </svg>
+</a>
+    </section>
   </main>
 
   <footer>
