@@ -1,0 +1,155 @@
+/* Déclaration ordonnée des couches */
+@layer theme, fonts, typo, layout;
+
+/* ==========================================================================
+   0. COUCHE POLICES DE CARACTÈRES (@layer fonts)
+   ========================================================================== */
+@layer fonts {
+/* --- PILES DE POLICES SYSTÈME (ff-*) --- */
+    --ff-sans-geom: "Avenir Next", Avenir, Montserrat, Corbel, "URW Gothic", system-ui, sans-serif;
+    --ff-sans-hum:  Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans', "Source Sans Pro", sans-serif;
+    --ff-sans-neo:  system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --ff-serif-hum:     Optima, Candara, "Noto Sans", source-sans-pro, sans-serif;
+    --ff-serif-classic: "Iowan Old Style", "Palatino Linotype", "URW Palladio L", P052, Georgia, serif;
+    --ff-serif-trans:   Charter, "Bitstream Charter", "Sitka Text", Cambria, Times New Roman, serif;
+    --ff-serif-slab:    Rockwell, "Rockwell Nova", "Roboto Slab", "DejaVu Serif", "Sitka Small", serif;
+}
+/* ==========================================================================
+   1. COUCHE TYPOGRAPHIE (@layer typo)
+   ========================================================================== */
+@layer typo {
+  :root {
+    /* --- PARAMÈTRES ET VARIABLE FLUIDE --- */
+    --vp-min-num: 20;
+    --vp-max-num: 90;
+    --vp-min: calc(var(--vp-min-num) * 1rem);
+    --vp-max: calc(var(--vp-max-num) * 1rem);
+    --fs-min: 0.875rem;
+    --fs-max: 1rem;
+    --fs-var: calc(var(--fs-min) + (var(--fs-max) - var(--fs-min)) * (100vw - var(--vp-min)) / (var(--vp-max-num) - var(--vp-min-num)));
+
+    
+    /* --- TAILLES FLUIDES (fs-*) --- */
+    --fs-xs:   clamp(0.7rem,     var(--fs-var) * 0.75,  0.75rem);
+    --fs-sm:   clamp(0.8rem,     var(--fs-var) * 0.875, 0.875rem);
+    --fs-base: clamp(var(--fs-min), var(--fs-var),     var(--fs-max));
+    --fs-md:   clamp(1.125rem,   var(--fs-var) * 1.25,   1.25rem);
+    --fs-lg:   clamp(1.25rem,    var(--fs-var) * 1.563,  1.563rem);
+    --fs-xl:   clamp(1.5rem,     var(--fs-var) * 1.953,  1.953rem);
+    --fs-xxl:  clamp(1.8rem,     var(--fs-var) * 2.441,  2.441rem);
+
+    /* --- GRAISSES (fw-*) --- */
+    --fw-100: 100; --fw-200: 200; --fw-300: 300; --fw-400: 400; --fw-500: 500;
+    --fw-600: 600; --fw-700: 700; --fw-800: 800; --fw-900: 900; --fw-1000: 1000;
+
+    /* --- INTERLIGNAGES (lh-*) --- */
+    --lh-10: 1; --lh-11: 1.1; --lh-12: 1.2; --lh-13: 1.3; --lh-14: 1.4; --lh-15: 1.5; --lh-16: 1.6;
+    --lh-ui:      var(--lh-12);
+    --lh-compact: var(--lh-14);
+    --lh-reading: var(--lh-16);
+
+    /* --- LETTER SPACING (ls-*) --- */
+    --ls-geom-ui: 0.03em; --ls-geom-caps: 0.06em; --ls-hum-prose: normal; --ls-hum-meta: 0.01em;
+    --ls-neo-default: normal; --ls-neo-dense: -0.01em; --ls-serif-heading: -0.015em; --ls-serif-reading: normal;
+
+    /* --- MARGES ET RYTHME (space-*) --- */
+    --space-xs: 0.25em; --space-sm: 0.5em; --space-md: 1em; --space-lg: 1.5em; --space-xl: 2em;
+
+    font-size-adjust: 0.5;
+  }
+
+  /* --- GESTION DU FLUX DE LECTURE --- */
+  .editorial-flow {
+    & p, & ul, & ol { margin-top: 0; margin-bottom: var(--space-md); }
+    & li { margin-bottom: var(--space-xs); }
+    & h1 { margin-top: 0; margin-bottom: var(--space-lg); }
+    & h2 { margin-top: var(--space-xl); margin-bottom: var(--space-md); }
+    & h3 { margin-top: var(--space-lg); margin-bottom: var(--space-sm); }
+    & figure { margin: var(--space-xl) 0; }
+    & figcaption { margin-top: var(--space-sm); margin-bottom: 0; }
+    
+    /* COLLISIONS ACCESSIBLES */
+    & h2 + h3 { margin-top: var(--space-sm); }
+    & h1 + h2 { margin-top: var(--space-md); }
+    & h3 + p, & h3 + ul { margin-top: 0; }
+    & > :first-child { margin-top: 0 !important; }
+    & > :last-child { margin-bottom: 0 !important; }
+  }
+}
+
+/* ==========================================================================
+   2. COUCHE STRUCTURELLE / GABARIT (@layer layout)
+   ========================================================================== */
+@layer layout {
+  /* Réinitialisation de base intégrée au flux structurel */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  /* Centrage global adaptatif et conteneur de votre application/site */
+  .container {
+    width: 100%;
+    max-width: var(--vp-max);
+    margin-inline: auto;
+    padding-inline: var(--fs-base); /* Utilise la taille fluide en guise de padding */
+  }
+
+  /* Grille asymétrique type documentation (Sidebar + Contenu principal) */
+  .doc-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--fs-md);
+    margin-block: var(--fs-xl);
+
+    /* Devient un vrai système à deux colonnes sur écran de bureau */
+    @media (min-width: 48rem) { /* ~768px */
+      grid-template-columns: 16rem 1fr;
+    }
+  }
+
+  /* Barre de navigation / Interface utilisateur */
+  .main-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    padding-block: var(--space-md);
+  }
+}
+
+/* ==========================================================================
+   3. COUCHE THÈME ET COULEURS (@layer theme)
+   ========================================================================== */
+@layer theme {
+  :root {
+    color-scheme: light dark;
+
+    /* TOKENS DE COULEURS HTML NOMMÉES */
+    --c-text-base:   light-dark(dimgray, whitesmoke);
+    --c-text-strong: light-dark(black, white);
+    --c-text-muted:  light-dark(gray, lightgray);
+    --c-bg-base:    light-dark(white, black);
+    --c-bg-surface: light-dark(gainsboro, darkslategray);
+  }
+
+  body {
+    background-color: var(--c-bg-base);
+    color: var(--c-text-base);
+  }
+
+  .editorial-flow {
+    & p, & ul, & ol { color: var(--c-text-base); }
+    & h1, & h2, & h3 { color: var(--c-text-strong); }
+    & figcaption { color: var(--c-text-muted); }
+  }
+
+  .main-nav__link {
+    color: var(--c-text-strong);
+    &:hover { color: var(--c-text-base); }
+  }
+
+  .ui-badge {
+    background-color: var(--c-bg-surface);
+    color: var(--c-text-strong);
+  }
+}
