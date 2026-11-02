@@ -1,8 +1,9 @@
 content:
-  - type: file
-    path: index.html
+  - name: homepage
     label: Page d'accueil
+    type: file
+    path: index.html
     fields:
-      - type: rich-text
-        name: body
+      - name: body
         label: Contenu de la page
+        type: rich-text
